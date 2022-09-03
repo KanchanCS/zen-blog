@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    {% include "slider.html" %}
+    <section id="posts" class="posts">
+        <div class="container aos-init aos-animate" data-aos="fade-up">
+          <div class="row g-5">
+            <div class="col-lg-4">
+              <div class="post-entry-1 lg">
+                <a href="single-post.html"><img src="{{last.image.url}}" alt="" class="img-fluid"></a>
+                <div class="post-meta"><span class="date">{{last.category.name}}</span> <span class="mx-1">•</span> <span>{{last.create_date}}</span></div>
+                <h2><a href="single-post.html">{{last.title}}</a></h2>
+                <p class="mb-4 d-block">{{last.content}}</p>
+  
+                <div class="d-flex align-items-center author">
+                  <div class="photo"><img src=" {% static 'img/person-1.jpg' %}" alt="" class="img-fluid"></div>
+                  <div class="name">
+                    <h3 class="m-0 p-0">{{last.auther}}</h3>
+                  </div>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="col-lg-8">
+              <div class="row g-5">
+                <div class="col-lg-4 border-start custom-border">
+                 {% for post in part_one %}
+                 <div class="post-entry-1">
+                    <a href="single-post.html"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                    <div class="post-meta"><span class="date">{{post.category.name}}</span> <span class="mx-1">•</span> <span>{{post.create_date}}</span></div>
+                    <h2><a href="single-post.html">{{post.title}}</a></h2>
+                  </div>
+                 {% endfor %}
+                
+                </div>
+                <div class="col-lg-4 border-start custom-border">
+                    {% for post in part_two %}
+                    <div class="post-entry-1">
+                       <a href="single-post.html"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                       <div class="post-meta"><span class="date">{{post.category.name}}</span> <span class="mx-1">•</span> <span>{{post.create_date}}</span></div>
+                       <h2><a href="single-post.html">{{post.title}}</a></h2>
+                     </div>
+                    {% endfor %}
+                </div>
+  
+                <!-- Trending Section -->
+                <div class="col-lg-4">
+  
+                  <div class="trending">
+                    <h3>Trending</h3>
+                    <ul class="trending-post">
+                      {% for post in recent_post  %}
+                      <li>
+                        <a href="single-post.html">
+                          <span class="number">{{forloop.counter}}</span>
+                          <h3>{{post.title}}</h3>
+                          <span class="author">{{post.auther}}</span>
+                        </a>
+                      </li>
+                     
+                      {% endfor %}
+                    </ul>
+                  </div>
+  
+                </div> <!-- End Trending Section -->
+              </div>
+            </div>
+  
+          </div> <!-- End .row -->
+        </div>
+      </section>
+
+
+
+{% endblock content %}
