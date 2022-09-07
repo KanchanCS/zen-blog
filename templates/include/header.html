@@ -1,24 +1,28 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+      <a href="{% url 'blog:home' %}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1>ZenBlog</h1>
       </a>
-
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="index.html">Blog</a></li>
-          <li><a href="single-post.html">Single Post</a></li>
-          <li class="dropdown"><a href="category.html"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <li><a href="{% url 'blog:home' %}">Blog</a></li>
+          
+          <li class="dropdown"><a><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+           
             <ul>
-              <li><a href="search-result.html">Search Result</a></li>
+              {% for options in category %}
+              <li><a href="{% url 'blog:category' %}">{{options.name}}</a></li>
+              {% endfor %}
             </ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          </li>
+          <li><a href="{% url 'blog:about' %}">About</a></li>
+          <li><a href="{% url 'blog:contact' %}">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
+      
 
       <div class="position-relative">
         <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
@@ -38,5 +42,4 @@
         </div><!-- End Search Form -->
       </div>
     </div>
-
   </header>

@@ -1,35 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    {% include "slider.html" %}
+   {% include "slider.html" %}
     <section id="posts" class="posts">
         <div class="container aos-init aos-animate" data-aos="fade-up">
           <div class="row g-5">
             <div class="col-lg-4">
               <div class="post-entry-1 lg">
-                <a href="single-post.html"><img src="{{last.image.url}}" alt="" class="img-fluid"></a>
+                <a href="{% url 'blog:single_post' last.id %}"><img src="{{last.image.url}}" alt="" class="img-fluid"></a>
                 <div class="post-meta"><span class="date">{{last.category.name}}</span> <span class="mx-1">•</span> <span>{{last.create_date}}</span></div>
-                <h2><a href="single-post.html">{{last.title}}</a></h2>
-                <p class="mb-4 d-block">{{last.content}}</p>
-  
+                <h2><a href="{% url 'blog:single_post' last.id %}">{{last.title}}</a></h2>
+                <p class="mb-4 d-block">{{last.content}}</p> 
                 <div class="d-flex align-items-center author">
                   <div class="photo"><img src=" {% static 'img/person-1.jpg' %}" alt="" class="img-fluid"></div>
                   <div class="name">
                     <h3 class="m-0 p-0">{{last.auther}}</h3>
                   </div>
                 </div>
-              </div>
-  
+              </div> 
             </div>
-  
             <div class="col-lg-8">
               <div class="row g-5">
                 <div class="col-lg-4 border-start custom-border">
                  {% for post in part_one %}
                  <div class="post-entry-1">
-                    <a href="single-post.html"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                    <a href="{% url 'blog:single_post' post.id %}"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
                     <div class="post-meta"><span class="date">{{post.category.name}}</span> <span class="mx-1">•</span> <span>{{post.create_date}}</span></div>
-                    <h2><a href="single-post.html">{{post.title}}</a></h2>
+                    <h2><a href="{% url 'blog:single_post' post.id %}">{{post.title}}</a></h2>
                   </div>
                  {% endfor %}
                 
@@ -37,9 +34,9 @@
                 <div class="col-lg-4 border-start custom-border">
                     {% for post in part_two %}
                     <div class="post-entry-1">
-                       <a href="single-post.html"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                       <a href="{% url 'blog:single_post' post.id %}"><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
                        <div class="post-meta"><span class="date">{{post.category.name}}</span> <span class="mx-1">•</span> <span>{{post.create_date}}</span></div>
-                       <h2><a href="single-post.html">{{post.title}}</a></h2>
+                       <h2><a href="{% url 'blog:single_post' post.id %}">{{post.title}}</a></h2>
                      </div>
                     {% endfor %}
                 </div>
@@ -52,7 +49,7 @@
                     <ul class="trending-post">
                       {% for post in recent_post  %}
                       <li>
-                        <a href="single-post.html">
+                        <a href="{% url 'blog:single_post' post.id %}">
                           <span class="number">{{forloop.counter}}</span>
                           <h3>{{post.title}}</h3>
                           <span class="author">{{post.auther}}</span>
@@ -71,6 +68,56 @@
         </div>
       </section>
 
+      <!-- start culter -->
+      <section class="category-section">
+        <div class="container aos-init aos-animate" data-aos="fade-up">
+  
+          <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>Culture</h2>
+            <div><a href="category.html" class="more">See All Culture</a></div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-9">
+            {% for post in all_post %}
+            {% if post.category.name == 'Culture' %}
+            <div class="d-lg-flex post-entry-2">
+                <a href="{% url 'blog:single_post' post.id %}" class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                  <img src="{{post.image.url}}" alt="" class="img-fluid">
+                </a>
+                <div>
+                  <div class="post-meta"><span class="date">{{post.category.name}}</span> <span class="mx-1">•</span> <span>{{post.create_date}}</span></div>
+                  <h3><a href="{% url 'blog:single_post' post.id %}">{{post.title}}</a></h3>
+                  <p>{{post.content}}</p>
+                  <div class="d-flex align-items-center author">
+                    <div class="photo"><img src="{{post.image.url}}" alt="" class="img-fluid"></div>
+                    <div class="name">
+                      <h3 class="m-0 p-0">{{post.auther}}</h3>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+           
+            {% endfor %}
+            </div>
+  
+            <div class="col-md-3">
+              <div class="post-entry-1 border-bottom">
+                {% for data in recent_post  %}
+                {% if data.category.name == 'Culture' %}
+                <div class="post-meta"><span class="date">{{data.category.name}}</span> <span class="mx-1">•</span> <span>{{data.create.date}}</span></div>
+                <h2 class="mb-2"><a href="{% url 'blog:single_post' data.id %}">{{data.title}}</a></h2>
+                <span class="author mb-3 d-block">{{auther.name}}</span>
+                {% endif %}
+                
+                {% endfor  %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+ <!-- end start culter -->
 
 
 {% endblock content %}
